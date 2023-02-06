@@ -27,5 +27,6 @@
     ?>
 
     <h2><?php echo 'Salut'; ?></h2>
+    <a href="hello.php">Hello</a>
 </body>
 </html>
