@@ -74,5 +74,8 @@
         // echo 10 / 0; // FATAL ERROR (Arrête le script, erreur 500)
         echo 'toto';
     ?>
+
+    <a href="major.php">Exercice Majeur</a>
+    <a href="operation.php">Exercice Opération</a>
 </body>
 </html>
