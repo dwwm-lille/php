@@ -77,5 +77,21 @@
 
     <a href="major.php">Exercice Majeur</a>
     <a href="operation.php">Exercice Opération</a>
+
+    <h2>Le switch</h2>
+    <?php
+        $age = 0;
+
+        switch ($age) {
+            case 0:
+            case $age < 18: // Cas où $age == $age < 18 ?
+                echo 'Tu n\'es pas majeur';
+            break;
+            case 18: // Cas où $age == 18 ?
+            case 19: // Cas où $age == 19 ?
+                echo 'Tu es majeur';
+            break;
+        }
+    ?>
 </body>
 </html>
