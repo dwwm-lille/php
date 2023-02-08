@@ -1,0 +1,39 @@
+.square {
+    max-width: 500px;
+    margin: auto;
+    border: 1px solid #a3a3a3;
+}
+
+.border-b {
+    border-bottom: 1px solid #a3a3a3;
+}
+
+.border-r {
+    border-right: 1px solid #a3a3a3;
+}
+
+.flex {
+    display: flex;
+    justify-content: space-between;
+}
+
+.item {
+    width: 45px;
+    padding: 10px 0;
+}
+
+.center {
+    text-align: center;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.bg-light {
+    background-color: lightgray;
+}
+
+.bg-dark {
+    background-color: darkgray;
+}
