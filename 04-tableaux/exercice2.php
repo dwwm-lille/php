@@ -72,5 +72,52 @@
     <?php } ?>
 
     <p>Nombre d'élèves avec la moyenne: <?= $numberAverage; ?></p>
+
+    <h2>Quel(s) éléve(s) a(ont) la meilleure note ?</h2>
+
+    <?php
+        $bestNote = 0;
+
+        // Trouver la meilleure note
+        foreach ($students as $student) {
+            foreach ($student['notes'] as $note) {
+                if ($note > $bestNote) {
+                    $bestNote = $note;
+                }
+            }
+        }
+
+        // Trouver qui a cette meilleure note
+        foreach ($students as $student) {
+            // in_array est une fonction qui permet de savoir si une valeur est dans un tableau
+            if (in_array($bestNote, $student['notes'])) {
+                echo "<p>{$student['nom']} a la meilleure note : $bestNote</p>";
+            }
+        }
+    ?>
+
+    <h2>Qui a eu au moins un 20 ?</h2>
+
+    <?php
+        $hasTwenty = false;
+
+        // On cherche parmi toutes les notes au moins un 20
+        foreach ($students as $student) {
+            foreach ($student['notes'] as $note) {
+                if ($note === 20) {
+                    $hasTwenty = true;
+                    break 2; // On arrête le foreach des notes ET le foreach des élèves dès qu'on tombe sur 20
+                }
+                var_dump($note);
+            }
+            var_dump($student);
+        }
+
+        if ($hasTwenty) {
+            echo '<p>Quelqu\'un a eu 20</p>';
+        } else {
+            echo '<p>Personne n\'a eu 20</p>';
+        }
+    ?>
 </body>
 </html>
