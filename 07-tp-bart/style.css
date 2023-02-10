@@ -1,0 +1,30 @@
+.board {
+    background-color: #01551f;
+    border: 5px solid #652f04;
+    color: #fff;
+    padding: 20px;
+    font-family: 'Permanent Marker', cursive;
+    max-width: 800px;
+    margin: auto;
+}
+
+.board .content {
+    display: inline-block;
+    position: relative;
+}
+
+.board .bart {
+    background-image: url(bart.png);
+    background-repeat: no-repeat;
+    background-position: bottom right;
+    width: 110px;
+    height: 220px;
+    position: absolute;
+    bottom: -90px;
+    right: -105px;
+}
+
+.board p {
+    margin: 0;
+    font-size: 22px;
+}
