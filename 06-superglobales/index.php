@@ -20,9 +20,16 @@
         // Avec une nouvelle méthode (PHP 7), le null coalesce
         $name = $_GET['name'] ?? 'John Doe';
         $age = $_GET['age'] ?? null;
+        $uppercase = (bool) ($_GET['uppercase'] ?? false); // On caste le "on" pour que la variable soit true ou false
+        $originalName = $name;
+        $selectedHouse = $_GET['house'] ?? null;
+
+        if ($uppercase) { // Si la case est cochée, on mets le nom en majuscule
+            $name = strtoupper($name);
+        }
     ?>
 
-    <h1>Bonjour <?= $name; ?></h1>
+    <h1>Bonjour <?= ucfirst($name); ?></h1>
 
     <?php if ($age) { ?>
         <p>Tu as <?= $age; ?> ans.</p>
@@ -33,10 +40,41 @@
 
     <h2>Un formulaire avec $_GET</h2>
     <form method="get" action="">
-        <input type="text" name="name" value="<?= $name; ?>">
-        <input type="text" name="age" value="<?= $age; ?>">
+        <div>
+            <label for="name">Nom</label>
+            <input type="text" name="name" id="name" value="<?= $originalName; ?>">
+        </div>
 
-        <button>Envoyer</button>
+        <div>
+            <label for="age">Âge</label>
+            <!-- <input type="text" name="age" value="<?= $age; ?>"> -->
+            <select name="age" id="age">
+                <?php for ($i = 13; $i <= 120; $i++) { ?>
+                    <option value="<?= $i ;?>" <?= $i === $age ? 'selected' : ''; ?>>
+                        <?= $i; ?> ans
+                    </option>
+                <?php } ?>
+            </select>
+        </div>
+
+        <div>
+            <?php $houses = ['Griffondor', 'Serdaigle', 'Poufsouffle', 'Serpentard']; ?>
+            <label>Maison sorcier</label>
+            <?php foreach ($houses as $house) { ?>
+                <input type="radio" name="house" id="house-<?= $house; ?>" value="<?= $house; ?>" <?= $house === $selectedHouse ? 'checked' : ''; ?>>
+                <label for="house-<?= $house; ?>"><?= $house; ?></label>
+            <?php } ?>
+        </div>
+
+        <div>
+            <input type="checkbox" name="uppercase" id="uppercase" <?= $uppercase ? 'checked' : ''; ?>>
+            <label for="uppercase">Majuscule</label>
+        </div>
+
+        <button>Envoyer</button> <!-- Le button est DANS le form -->
+        <input type="submit" value="Envoyer"> <!-- Méthode 2 -->
+
+        <button type="button">Envoyer (Non fonctionnel)</button> <!-- Désactiver le bouton -->
     </form>
 </body>
 </html>
