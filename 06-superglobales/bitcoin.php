@@ -7,7 +7,7 @@
 </head>
 <body>
     <?php
-        $amount = $_POST['amount'] ?? null;
+        $amount = (float) ($_POST['amount'] ?? null); // On force le amount à être un nombre
         $currency = $_POST['currency'] ?? 'euro';
 
         if (!empty($_POST)) { // On vérifie que le formulaire a été envoyé
@@ -27,7 +27,7 @@
     <form method="post" action="">
         <div>
             <label for="amount">Montant</label>
-            <input type="text" name="amount" id="amount" value="<?= $amount; ?>">
+            <input name="amount" id="amount" value="<?= $amount; ?>">
         </div>
 
         <div>
