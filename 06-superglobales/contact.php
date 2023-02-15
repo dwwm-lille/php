@@ -14,10 +14,11 @@
         }
 
         function isSubmit() {
-            return ! empty($_POST);
+            return !empty($_POST);
         }
 
-        // La liste des sujets
+        // La liste des sujets. La valeur représente ce qu'on affiche et la clé est un identifiant du sujet
+        // qui pourrait être utile si on veut stocker la demande de contact dans la base de données.
         $subjects = [
             'stage' => 'Proposition de stage',
             'job' => 'Proposition d\'emploi',
@@ -92,7 +93,7 @@
                 <div class="lg:w-1/2 mb-3">
                     <label for="subject" class="block text-gray-600 text-sm">Sujet</label>
                     <select class="w-full rounded mt-1 border-gray-300 shadow <?= isset($errors['subject']) ? 'border-red-500' : ''; ?>" name="subject" id="subject">
-                        <option disabled selected>Choisir un sujet</option>
+                        <option hidden>Choisir un sujet</option>
                         <?php foreach ($subjects as $key => $sub) { ?>
                         <option <?= $key == $subject ? 'selected' : '' ; ?> value="<?= $key; ?>"><?= $sub; ?></option>
                         <?php } ?>
