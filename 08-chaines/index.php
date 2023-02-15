@@ -62,6 +62,7 @@ var_dump($password);
 var_dump(trim($password));
 
 // Exemple de faille XSS
+// sur index.php?message=<script>alert('salut')</script>
 $message = $_GET['message'] ?? '';
 
 // Pour se protéger d'une faille XSS, on doit désactiver l'interprétation du HTML ou supprimer les balises
