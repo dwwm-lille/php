@@ -29,12 +29,43 @@ if (stripos($sentence, 'fai') !== false) {
 }
 
 // Remplacer une chaine dans une chaine
-echo str_replace('boxydev', 'gmail', $email);
+echo str_replace('boxydev', 'gmail', $email).'<br />';
 
 // En PHP, une chaine est un tableau
-echo $email[8]; // @
+echo $email[8].'<br />'; // @
 
 // Si on caste une chaine en tableau, on peut la parcourir
 foreach ((array) $email as $letter) {
     echo $letter;
 }
+
+echo '<br />';
+// Extraire une chaine d'une chaine
+// fiorella@cloud.boxydev.com
+
+// strpos($email, '@') vaut 8
+echo substr($email, 0, strpos($email, '@')).'<br />'; // fiorella
+echo substr($email, 9, -4).'<br />'; // cloud.boxydev
+echo substr($email, -3).'<br />'; // com
+
+$countriesString = 'italie,portugal,france';
+$countries = explode(',', $countriesString);
+var_dump($countries);
+
+echo '<ul>';
+echo '<li>'.implode('</li><li>', $countries).'</li>'; // <li>italie</li><li>portugal</li><li>france</li>
+echo '</ul>';
+
+// Quelques fonctions pour les formulaires
+$password = 'azerty123   ';
+var_dump($password);
+var_dump(trim($password));
+
+// Exemple de faille XSS
+$message = $_GET['message'] ?? '';
+
+// Pour se protéger d'une faille XSS, on doit désactiver l'interprétation du HTML ou supprimer les balises
+// $message = htmlspecialchars($message);
+$message = strip_tags($message, ['strong', 'em']);
+
+echo $message;
