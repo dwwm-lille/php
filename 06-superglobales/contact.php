@@ -48,6 +48,7 @@
 
             // BONUS: Vérifier le sujet (par rapport à un tableau)
             // En gros, on veut vérifier que le sujet saisi est dans le tableau
+            // array_keys retourne un tableau avec les clés d'un tableau
             if (empty($subject) || !in_array($subject, array_keys($subjects))) {
                 $errors['subject'] = 'Le sujet est invalide.';
             }
