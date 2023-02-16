@@ -1,5 +1,5 @@
 <?php require __DIR__.'/partials/header.php';
-echo $test;
+
     // La liste des sujets. La valeur représente ce qu'on affiche et la clé est un identifiant du sujet
     // qui pourrait être utile si on veut stocker la demande de contact dans la base de données.
     $subjects = [

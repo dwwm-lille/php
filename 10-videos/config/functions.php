@@ -5,8 +5,6 @@
  * peut réutiliser sur toutes nos pages.
  */
 
-$test = 'toto';
-
 /**
  * Permet de récupèrer le nom de la page actuelle.
  */
