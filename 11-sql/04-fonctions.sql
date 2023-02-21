@@ -22,3 +22,14 @@ SELECT m.id_movie as i FROM movie m WHERE m.id_movie = 1;
 -- On peut faire des sous requêtes SQL
 SELECT MAX(duration) FROM movie;
 SELECT * FROM movie WHERE duration = (SELECT MAX(duration) FROM movie);
+
+-- Compter le nombre de films (avec un alias)
+SELECT COUNT(id) as count_movie FROM movie;
+
+-- Avoir la moyenne des années de sortie des films
+SELECT ROUND(AVG(YEAR(released_at))) FROM movie;
+
+-- Récupérer le film le plus récent et le plus ancien (Sous requête)
+SELECT * FROM movie
+WHERE released_at = (SELECT MAX(released_at) FROM movie)
+OR released_at = (SELECT MIN(released_at) FROM movie);
