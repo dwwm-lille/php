@@ -16,3 +16,12 @@ SELECT * FROM movie ORDER BY released_at DESC LIMIT 1;
 SELECT * FROM movie ORDER BY released_at LIMIT 1;
 -- Récupère les acteurs nés avant 1960
 SELECT * FROM actor WHERE birthday < '1960-01-01';
+
+-- Exercice update et delete
+INSERT INTO actor (name, firstname, birthday) VALUES ('Milou', 'Tintin', '1999-12-25');
+-- INSERT INTO movie (title, released_at, description, duration, cover, id_category) VALUES ('Avengers Endgame', '2009-01-01', 'Lorem ipsum', 220, 'endgame.jpg', 2);
+
+DELETE FROM actor WHERE firstname = 'Tintin' AND name = 'Milou';
+
+UPDATE movie SET released_at = '2019-04-24' WHERE title = 'Avengers Endgame';
+UPDATE movie SET released_at = '2019-02-19' WHERE title = 'Deadpool 2';
