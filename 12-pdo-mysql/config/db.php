@@ -25,9 +25,21 @@ try { // Essaye le code ou va dans le catch
     die(); // On arrête le code car la BDD ne fonctionne pas
 }
 
-// On range la connexion à la BDD dans une fonction
+/**
+ * On range la connexion à la BDD dans une fonction.
+ */
 function db() {
     global $db; // Permet d'accèder à la variable $db
 
     return $db;
+}
+
+/**
+ * Permet de faire un fetchAll rapidement avec PDO.
+ */
+function select($sql, $params = []) {
+    $query = db()->prepare($sql);
+    $query->execute($params);
+
+    return $query->fetchAll();
 }

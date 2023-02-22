@@ -21,3 +21,22 @@ function truncate($text, $limit = 15) {
 function format_date($date, $format = 'd/m/Y') {
     return date($format, strtotime($date));
 }
+
+/**
+ * Permet de formatter une durée brut en minutes. 
+ */
+function format_duration($duration) {
+    $hours = floor($duration / 60);
+    $minutes = str_pad($duration % 60, 2, 0, STR_PAD_LEFT); // 2h1 => 2h01
+
+    return $hours.'h'.$minutes;
+}
+
+/**
+ * Permet d'afficher rapidement la 404
+ */
+function show404() {
+    http_response_code(404);
+    require __DIR__.'/../404.php';
+    die();
+}
