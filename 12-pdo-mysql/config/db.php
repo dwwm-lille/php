@@ -6,7 +6,7 @@
  */
 
 // Les paramètres de la BDD (sous forme de constantes)
-define('DB_HOST', 'localhot');
+define('DB_HOST', 'localhost');
 define('DB_NAME', 'webflix');
 define('DB_USER', 'root');
 define('DB_PASSWORD', '');
