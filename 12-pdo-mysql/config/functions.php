@@ -46,5 +46,5 @@ function show404() {
  */
 function sanitize($value) {
     // ' <script>toto</script> ' => '&lt;script&gt;toto&lt;/script&gt;'
-    return trim(htmlspecialchars($value));
+    return trim(htmlspecialchars($value ?? ''));
 }
