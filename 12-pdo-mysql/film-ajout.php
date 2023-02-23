@@ -4,11 +4,11 @@
 $categories = db()->query('SELECT * FROM category')->fetchAll();
 
 // Récupérer les valeur du formulaire
-$title = $_POST['title'] ?? null;
-$released_at = $_POST['released_at'] ?? null;
-$description = $_POST['description'] ?? null;
-$duration = $_POST['duration'] ?? null;
-$category = $_POST['category'] ?? null;
+$title = sanitize($_POST['title'] ?? null);
+$released_at = sanitize($_POST['released_at'] ?? null);
+$description = sanitize($_POST['description'] ?? null);
+$duration = sanitize($_POST['duration'] ?? null);
+$category = sanitize($_POST['category'] ?? null);
 
 $errors = [];
 
@@ -64,29 +64,39 @@ if (!empty($_POST)) {
     <h1 class="text-3xl text-center">Ajouter un film</h1>
 
     <form action="" method="post" class="px-3 w-1/2 mx-auto">
+        <?php if (! empty($errors)) { ?>
+            <div class="bg-red-300 p-5 rounded border border-red-800 text-red-800 my-4">
+                <?php foreach ($errors as $error) { ?>
+                    <p><?= $error; ?></p>
+                <?php } ?>
+            </div>
+        <?php } ?>
+
         <div class="mb-3">
             <label for="title" class="block">Titre</label>
-            <input class="w-full rounded-lg border-gray-300" type="text" name="title" id="title">
+            <input class="w-full rounded-lg border-gray-300" type="text" name="title" id="title" value="<?= $title; ?>">
         </div>
         <div class="mb-3">
             <label for="released_at" class="block">Date de sortie</label>
-            <input class="w-full rounded-lg border-gray-300" type="date" name="released_at" id="released_at">
+            <input class="w-full rounded-lg border-gray-300" type="date" name="released_at" id="released_at" value="<?= $released_at; ?>">
         </div>
         <div class="mb-3">
             <label for="description" class="block">Description</label>
-            <textarea class="w-full rounded-lg border-gray-300" name="description" id="description"></textarea>
+            <textarea class="w-full rounded-lg border-gray-300" name="description" id="description"><?= $description; ?></textarea>
         </div>
         <div class="mb-3">
             <label for="duration" class="block">Durée</label>
-            <input class="w-full rounded-lg border-gray-300" type="text" name="duration" id="duration">
+            <input class="w-full rounded-lg border-gray-300" type="text" name="duration" id="duration" value="<?= $duration; ?>">
         </div>
         <!-- @todo Upload de l'image -->
         <div class="mb-6">
             <label for="category" class="block">Catégorie</label>
             <select class="w-full rounded-lg border-gray-300" name="category" id="category">
                 <option hidden>Choisir une catégorie...</option>
-                <?php foreach ($categories as $category) { ?>
-                <option value="<?= $category['id_category']; ?>"><?= $category['name']; ?></option>
+                <?php foreach ($categories as $cat) { ?>
+                <option <?= $cat['id_category'] === $category ? 'selected' : '' ?> value="<?= $cat['id_category']; ?>">
+                    <?= $cat['name']; ?>
+                </option>
                 <?php } ?>
             </select>
         </div>

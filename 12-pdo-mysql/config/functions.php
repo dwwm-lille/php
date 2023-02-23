@@ -40,3 +40,11 @@ function show404() {
     require __DIR__.'/../404.php';
     die();
 }
+
+/**
+ * Permet de nettoyer les données utilisateurs.
+ */
+function sanitize($value) {
+    // ' <script>toto</script> ' => '&lt;script&gt;toto&lt;/script&gt;'
+    return trim(htmlspecialchars($value));
+}
