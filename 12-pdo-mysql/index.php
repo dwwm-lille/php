@@ -10,6 +10,12 @@ $movies = $query->fetchAll();
 ?>
 
 <div class="max-w-5xl mx-auto">
+    <div class="text-center">
+        <a href="film-ajout.php" class="bg-blue-400 hover:bg-blue-300 duration-500 px-3 py-2 rounded-lg mt-3 inline-block text-white text-center">
+            Ajouter un film
+        </a>
+    </div>
+
     <div class="flex flex-wrap">
         <?php foreach ($movies as $movie) { ?>
             <div class="w-1/2 md:w-1/3 lg:w-1/4">
