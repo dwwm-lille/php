@@ -1,4 +1,64 @@
-<?php require __DIR__.'/partials/header.php'; ?>
+<?php require __DIR__.'/partials/header.php';
+
+// Récupèrer les catégories
+$categories = db()->query('SELECT * FROM category')->fetchAll();
+
+// Récupérer les valeur du formulaire
+$title = $_POST['title'] ?? null;
+$released_at = $_POST['released_at'] ?? null;
+$description = $_POST['description'] ?? null;
+$duration = $_POST['duration'] ?? null;
+$category = $_POST['category'] ?? null;
+
+$errors = [];
+
+// Vérifier et traiter le formulaire
+if (!empty($_POST)) {
+    // Vérification des erreurs
+    if (strlen($title) === 0) {
+        $errors['title'] = 'Le titre est obligatoire.';
+    }
+
+    // Vérification de la date : 2023-02-23
+    $date = explode('-', $released_at); // [2023, 02, 23];
+    $year = (int) ($date[0] ?? 0); // 'toto' devient 0 et '' devient 0
+    $month = (int) ($date[1] ?? 0);
+    $day = (int) ($date[2] ?? 0);
+    if (! checkdate($month, $day, $year)) {
+        $errors['released_at'] = 'La date est incorrecte.';
+    }
+
+    if (mb_strlen($description) <= 5) {
+        $errors['description'] = 'La description doit faire 5 caractères minimum.';
+    }
+
+    if ($duration < 1 || $duration > 999) {
+        $errors['duration'] = 'La durée doit être entre 1 et 999 minutes.';
+    }
+
+    // Vérifier l'existence de la catégorie avec une requête (Non préparé ici pour l'exemple mais il faudrait...)
+    // ->fetchColumn() prend la valeur unique du résultat SQL
+    $exists = db()->query('SELECT COUNT(id_category) FROM category WHERE id_category = '.intval($category))->fetchColumn(); // 1 ou 0
+    if (! $exists) {
+        $errors['category'] = 'La catégorie doit exister.';
+    }
+
+    // Traitement du formulaire s'il n'y a pas d'erreurs
+    if (empty($errors)) {
+        // On fait la requête SQL pour insérer le film
+        $query = db()->prepare('INSERT INTO movie (title, released_at, description, duration, cover, id_category)
+            VALUES (:title, :released_at, :description, :duration, :cover, :category)');
+        $query->execute([
+            'title' => $title,
+            'released_at' => $released_at,
+            'description' => $description,
+            'duration' => $duration,
+            'cover' => null,
+            'category' => $category,
+        ]);
+    }
+}
+?>
 
 <div class="max-w-5xl mx-auto">
     <h1 class="text-3xl text-center">Ajouter un film</h1>
@@ -24,7 +84,10 @@
         <div class="mb-6">
             <label for="category" class="block">Catégorie</label>
             <select class="w-full rounded-lg border-gray-300" name="category" id="category">
-                <option>@todo récupérer les catégories</option>
+                <option hidden>Choisir une catégorie...</option>
+                <?php foreach ($categories as $category) { ?>
+                <option value="<?= $category['id_category']; ?>"><?= $category['name']; ?></option>
+                <?php } ?>
             </select>
         </div>
         <button class="bg-blue-400 hover:bg-blue-300 duration-500 px-3 py-2 rounded-lg mt-3 block w-full text-white text-center">Ajouter un film</button>
