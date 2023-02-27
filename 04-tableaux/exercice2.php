@@ -26,7 +26,7 @@
             ]
         ];
     ?>
-    
+
     <h2>Afficher la liste de tous les éléves avec leurs notes.</h2>
 
     <?php foreach ($students as $student) { ?>
@@ -61,7 +61,7 @@
     ?>
         <p>
             <?= $student['nom']; ?>
-            
+
             <?php if ($average >= 10) {
                 $numberAverage++;
                 echo 'a la moyenne';

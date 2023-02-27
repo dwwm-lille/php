@@ -23,7 +23,7 @@ function format_date($date, $format = 'd/m/Y') {
 }
 
 /**
- * Permet de formatter une durée brut en minutes. 
+ * Permet de formatter une durée brut en minutes.
  */
 function format_duration($duration) {
     $hours = floor($duration / 60);

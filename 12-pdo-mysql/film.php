@@ -27,7 +27,7 @@ WHERE mha.id_movie = :id', ['id' => $id]);
 
 /*
  * Choses à faire :
- * - Intégrer la page du film (2 colonnes => Image à gauche et 
+ * - Intégrer la page du film (2 colonnes => Image à gauche et
  *   le titre, la durée, la date et la description à droite).
  * - Pour la durée, il faut une fonction qui transforme une durée donnée
  *   en minutes en heures / minutes (122 devient 2h02)

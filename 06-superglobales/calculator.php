@@ -32,7 +32,7 @@
             }
 
             echo "<h1>$number1 $operator $number2 = $result</h1>";
-        } 
+        }
     ?>
 
     <form method="get" action="">
