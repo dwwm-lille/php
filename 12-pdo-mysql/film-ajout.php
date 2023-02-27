@@ -8,6 +8,7 @@ $title = sanitize($_POST['title'] ?? null);
 $released_at = sanitize($_POST['released_at'] ?? null);
 $description = sanitize($_POST['description'] ?? null);
 $duration = sanitize($_POST['duration'] ?? null);
+$cover = $_FILES['cover'] ?? null;
 $category = sanitize($_POST['category'] ?? null);
 
 $errors = [];
@@ -45,6 +46,15 @@ if (!empty($_POST)) {
 
     // Traitement du formulaire s'il n'y a pas d'erreurs
     if (empty($errors)) {
+        // Upload de l'image
+        $file = $cover['tmp_name']; // Emplacement temporaire
+        $filename = $cover['name']; // Nom du fichier original toto.jpg
+        $extension = substr(strrchr($filename, '.'), 1); // jpg
+        // Die Hard.jpg => die-hard-abf123.jpg
+        $filename = strtolower(str_replace(' ', '-', $title)).'-'.uniqid().'.'.$extension;
+
+        move_uploaded_file($file, __DIR__.'/uploads/'.$filename); // on upload dans dossier/uploads/die-hard.jpg
+
         // On fait la requête SQL pour insérer le film
         $query = db()->prepare('INSERT INTO movie (title, released_at, description, duration, cover, id_category)
             VALUES (:title, :released_at, :description, :duration, :cover, :category)');
@@ -53,7 +63,7 @@ if (!empty($_POST)) {
             'released_at' => $released_at,
             'description' => $description,
             'duration' => $duration,
-            'cover' => null,
+            'cover' => $filename,
             'category' => $category,
         ]);
     }
@@ -63,7 +73,7 @@ if (!empty($_POST)) {
 <div class="max-w-5xl mx-auto">
     <h1 class="text-3xl text-center">Ajouter un film</h1>
 
-    <form action="" method="post" class="px-3 w-1/2 mx-auto">
+    <form action="" method="post" enctype="multipart/form-data" class="px-3 w-1/2 mx-auto">
         <?php if (! empty($errors)) { ?>
             <div class="bg-red-300 p-5 rounded border border-red-800 text-red-800 my-4">
                 <?php foreach ($errors as $error) { ?>
@@ -88,7 +98,10 @@ if (!empty($_POST)) {
             <label for="duration" class="block">Durée</label>
             <input class="w-full rounded-lg border-gray-300" type="text" name="duration" id="duration" value="<?= $duration; ?>">
         </div>
-        <!-- @todo Upload de l'image -->
+        <div class="mb-3">
+            <label for="cover" class="block">Image</label>
+            <input type="file" class="file:bg-blue-400 hover:file:bg-blue-300 file:rounded-lg file:border-0 file:text-white file:px-3 file:py-2 file:cursor-pointer" name="cover" id="cover">
+        </div>
         <div class="mb-6">
             <label for="category" class="block">Catégorie</label>
             <select class="w-full rounded-lg border-gray-300" name="category" id="category">
