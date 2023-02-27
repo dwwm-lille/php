@@ -37,6 +37,14 @@ if (!empty($_POST)) {
         $errors['duration'] = 'La durée doit être entre 1 et 999 minutes.';
     }
 
+    // Vérifier le type du fichier uploadé
+    $mime = !empty($cover['tmp_name']) ? mime_content_type($cover['tmp_name']) : ''; // image/jpg
+    $mimeTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif']; // Les types qu'on autorise
+
+    if (! in_array($mime, $mimeTypes)) {
+        $errors['covers'] = 'Le fichier n\'est pas une image';
+    }
+
     // Vérifier l'existence de la catégorie avec une requête (Non préparé ici pour l'exemple mais il faudrait...)
     // ->fetchColumn() prend la valeur unique du résultat SQL
     $exists = db()->query('SELECT COUNT(id_category) FROM category WHERE id_category = '.intval($category))->fetchColumn(); // 1 ou 0
