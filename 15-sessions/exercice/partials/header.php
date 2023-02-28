@@ -1,3 +1,6 @@
+<?php
+    require __DIR__.'/../config/functions.php';
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
