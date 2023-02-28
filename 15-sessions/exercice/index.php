@@ -9,6 +9,13 @@ if (isSubmit()) {
     if ($username != 'admin' || $password != 'admin') {
         $errors[] = 'Les identifiants sont invalides.';
     }
+
+    // Si on n'a pas d'erreurs, on se connecte...
+    if (empty($errors)) {
+        $_SESSION['user'] = $username; // On se connecte (avec la session)
+
+        header('Location: profile.php');
+    }
 }
 ?>
 

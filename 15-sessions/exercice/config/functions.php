@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 /**
  * Permet de récupèrer facilement un champ en POST
  */
@@ -19,4 +21,11 @@ function sanitize($value) {
  */
 function isSubmit() {
     return !empty($_POST);
+}
+
+/**
+ * Permet de récupèrer l'utilisateur dans la session.
+ */
+function user() {
+    return $_SESSION['user'] ?? null;
 }
