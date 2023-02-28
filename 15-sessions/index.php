@@ -17,7 +17,14 @@ require __DIR__.'/partials/header.php'; ?>
         if ($remember) {
             // On peut créer un cookie en PHP.
             // ATTENTION, un cookie est modifiable donc il faut pas stocker des données qu'on peut deviner
-            setcookie('remember', $nickname, time() + 60 * 60 * 24 * 365);
+
+            // Générer un hash avec le pseudo
+            $hash = password_hash($nickname, PASSWORD_DEFAULT);
+            // Stocker le pseudo et le hash dans un fichier
+            file_put_contents('tokens.txt', $nickname.':'.$hash."\n", FILE_APPEND);
+            // Stocker le hash dans le cookie
+
+            setcookie('remember', $hash, time() + 60 * 60 * 24 * 365);
         }
 
         header('Location: index.php');
