@@ -5,8 +5,7 @@ $id = $_GET['id'] ?? null;
 
 // Je prépare une requête pour aller chercher
 // le film dans la BDD
-$query = db()->prepare('SELECT * FROM movie
-WHERE id_movie = :id');
+$query = db()->prepare('SELECT * FROM movie WHERE id_movie = :id');
 
 // Pour une requête préparée (se protéger des failles SQL)
 // On doit remplacer les paramètres (:id devient $id)

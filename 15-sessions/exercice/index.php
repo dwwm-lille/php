@@ -6,7 +6,16 @@ $password = post('password');
 $errors = [];
 
 if (isSubmit()) {
-    if ($username != 'admin' || $password != 'admin') {
+    // if ($username != 'admin' || $password != 'admin') {
+    //     $errors[] = 'Les identifiants sont invalides.';
+    // }
+
+    // On veut vérifier que l'utilisateur existe dans la BDD
+    $query = db()->prepare('SELECT * FROM user WHERE username = :username');
+    $query->execute(['username' => $username]);
+    $user = $query->fetch();
+
+    if (!$user || $user['password'] !== $password) {
         $errors[] = 'Les identifiants sont invalides.';
     }
 
