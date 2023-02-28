@@ -38,6 +38,7 @@ if (isSubmit()) {
             </div>
 
             <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 rounded w-full">Login</button>
+            <a href="register.php" class="mt-4 text-center block text-sm text-gray-500">Pas de compte ?</a>
         </form>
     </div>
 </div>
