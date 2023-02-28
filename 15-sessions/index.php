@@ -9,9 +9,16 @@ require __DIR__.'/partials/header.php'; ?>
 <?php
     if (! empty($_POST)) {
         $nickname = $_POST['nickname'] ?? null;
+        $remember = $_POST['remember'] ?? false;
 
         $_SESSION['nickname'] = $nickname;
         // $_SESSION = ['nickname' => $nickname];
+
+        if ($remember) {
+            // On peut créer un cookie en PHP.
+            // ATTENTION, un cookie est modifiable donc il faut pas stocker des données qu'on peut deviner
+            setcookie('remember', $nickname, time() + 60 * 60 * 24 * 365);
+        }
 
         header('Location: index.php');
     }
@@ -29,6 +36,10 @@ require __DIR__.'/partials/header.php'; ?>
 
 <form action="" method="post">
     <input type="text" name="nickname">
+    <div>
+        <input type="checkbox" id="remember" name="remember">
+        <label for="remember">Se souvenir de moi</label>
+    </div>
     <button>Envoyer</button>
 </form>
 
