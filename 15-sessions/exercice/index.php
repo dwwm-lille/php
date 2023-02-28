@@ -31,7 +31,7 @@ if (isSubmit()) {
 
         <form action="" method="post" class="space-y-4">
             <div>
-                <input class="border-gray-300 w-full" type="text" name="username" placeholder="Login">
+                <input class="border-gray-300 w-full" type="text" name="username" placeholder="Login" value="<?= $username; ?>">
             </div>
             <div>
                 <input class="border-gray-300 w-full" type="password" name="password" placeholder="Mot de passe">
