@@ -29,7 +29,7 @@ if (isSubmit()) {
         db()->prepare('INSERT INTO user (username, email, password) VALUES (:username, :email, :password)')->execute([
             'username' => $username,
             'email' => $username,
-            'password' => $password,
+            'password' => password_hash($password, PASSWORD_DEFAULT),
         ]);
 
         $_SESSION['user'] = $username; // On se connecte (avec la session)

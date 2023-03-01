@@ -16,7 +16,7 @@ if (isSubmit()) {
     // $user = $query->fetch();
     $user = selectUser($username);
 
-    if (!$user || $user['password'] !== $password) {
+    if (!$user || !password_verify($password, $user['password'])) {
         $errors[] = 'Les identifiants sont invalides.';
     }
 
