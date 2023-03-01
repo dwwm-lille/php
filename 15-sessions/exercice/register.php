@@ -26,10 +26,11 @@ if (isSubmit()) {
 
     // Si on n'a pas d'erreurs, on inscrit l'utilisateur et on se connecte...
     if (empty($errors)) {
-        db()->prepare('INSERT INTO user (username, email, password) VALUES (:username, :email, :password)')->execute([
+        db()->prepare('INSERT INTO user (username, email, password, token) VALUES (:username, :email, :password, :token)')->execute([
             'username' => $username,
             'email' => $username,
             'password' => password_hash($password, PASSWORD_DEFAULT),
+            'token' => bin2hex(random_bytes(16)),
         ]);
 
         $_SESSION['user'] = $username; // On se connecte (avec la session)

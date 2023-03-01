@@ -3,6 +3,7 @@
 // Récupère les données
 $username = post('username');
 $password = post('password');
+$remember = post('remember');
 $errors = [];
 
 if (isSubmit()) {
@@ -23,6 +24,10 @@ if (isSubmit()) {
     // Si on n'a pas d'erreurs, on se connecte...
     if (empty($errors)) {
         $_SESSION['user'] = $username; // On se connecte (avec la session)
+
+        if ($remember) { // Si la case est cochée, on fait un cookie
+            setcookie('remember', $user['token'], time() + 60 * 60 * 24 * 365);
+        }
 
         header('Location: profile.php');
     }
@@ -45,6 +50,10 @@ if (isSubmit()) {
             </div>
             <div>
                 <input class="border-gray-300 w-full" type="password" name="password" placeholder="Mot de passe">
+            </div>
+            <div class="flex items-center">
+                <input type="checkbox" name="remember" id="remember" class="border-gray-300 mr-4">
+                <label for="remember" class="text-sm text-gray-500">Se rappeller de moi</label>
             </div>
 
             <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 rounded w-full">Login</button>

@@ -1,6 +1,18 @@
 <?php
 
-require __DIR__.'/partials/header.php'; 
+require __DIR__.'/partials/header.php';
+
+if (isset($_COOKIE['remember'])) {
+    $query = db()->prepare('SELECT * FROM user WHERE token = :token');
+    $query->execute(['token' => $_COOKIE['remember']]);
+    $user = $query->fetch();
+
+    if ($user) {
+        $_SESSION['user'] = $user['username'];
+    } else {
+        die('TRÈS ÉTRANGE...');
+    }
+}
 
 // Redirige vers l'accueil si on n'est pas connecté
 if (!user()) {
