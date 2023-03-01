@@ -31,3 +31,13 @@ function isSubmit() {
 function user() {
     return $_SESSION['user'] ?? null;
 }
+
+/**
+ * Permet de récupérer un utilisateur dans la BDD.
+ */
+function selectUser($username) {
+    $query = db()->prepare('SELECT * FROM user WHERE username = :username');
+    $query->execute(['username' => $username]);
+
+    return $query->fetch();
+}

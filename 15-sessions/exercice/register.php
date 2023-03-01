@@ -17,6 +17,13 @@ if (isSubmit()) {
         $errors[] = 'Le mot de passe est invalide ou ne correspond pas à sa confirmation.';
     }
 
+    // On vérifie si l'utilisateur existe
+    $user = selectUser($username);
+
+    if ($user) {
+        $errors[] = 'Le pseudo est déjà utilisé.';
+    }
+
     // Si on n'a pas d'erreurs, on inscrit l'utilisateur et on se connecte...
     if (empty($errors)) {
         db()->prepare('INSERT INTO user (username, email, password) VALUES (:username, :email, :password)')->execute([

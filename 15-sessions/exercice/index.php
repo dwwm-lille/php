@@ -11,9 +11,10 @@ if (isSubmit()) {
     // }
 
     // On veut vérifier que l'utilisateur existe dans la BDD
-    $query = db()->prepare('SELECT * FROM user WHERE username = :username');
-    $query->execute(['username' => $username]);
-    $user = $query->fetch();
+    // $query = db()->prepare('SELECT * FROM user WHERE username = :username');
+    // $query->execute(['username' => $username]);
+    // $user = $query->fetch();
+    $user = selectUser($username);
 
     if (!$user || $user['password'] !== $password) {
         $errors[] = 'Les identifiants sont invalides.';
